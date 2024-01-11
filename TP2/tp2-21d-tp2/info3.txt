@@ -1,0 +1,17 @@
+{
+	"contenidoStr": "{\n  \"type\": \"module\",\n  \"name\": \"proyectotp2\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"node ./tests/testAll.js\"\n  },\n  \"keywords\": [],\n  \"author\": \"\",\n  \"license\": \"ISC\"\n}",
+	"contenidoObj": {
+		"type": "module",
+		"name": "proyectotp2",
+		"version": "1.0.0",
+		"description": "",
+		"main": "index.js",
+		"scripts": {
+			"test": "node ./tests/testAll.js"
+		},
+		"keywords": [],
+		"author": "",
+		"license": "ISC"
+	},
+	"size": 224
+}

@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "name": "proyectotp2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./tests/testAll.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

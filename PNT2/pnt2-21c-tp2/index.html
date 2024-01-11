@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TP2 de PNT2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+
+</head>
+
+
+<div class="container-fluid mt-3" id="app">
+    <h1 class="card-title">{{titulo}}</h1>
+    <input type="text" class="form-control" v-model="criterioDeBusquedaNyA" placeholder="Ingrese nombre y/o apellido">
+        <p v-if="!validarlongitudNyA" class="alert alert-warning">{{mensajeAdvertencia}}</p>
+    <br>
+    <input type="text" class="form-control" v-model="criterioDeBusquedaDni" placeholder="Ingrese DNI">
+        <p v-if="!validarlongitudDni" class="alert alert-warning">{{mensajeAdvertencia}}</p>
+    <br>
+    <div class="card-deck m-0">
+        <div class="row">
+            <div class="col" v-for="persona in filtrarPersonas">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{getNombreCompleto(persona)}}</h5>
+                        <p class="card-text">DNI: {{persona.dni}}</p>
+                        <a href="#" class="card-link">{{persona.correo}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</html>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            titulo: 'Lista de Personas',
+            criterioDeBusquedaNyA: '',
+            validarCaracteresNyA: false,
+            criterioDeBusquedaDni: '',
+            validarCaracteresDni: false,
+            cantMinCaracteres: 3,
+            mensajeAdvertencia: 'Por favor ingrese más de 2 caracteres para realizar la búsqueda',
+            personas: [
+                {
+                    nombre: "Danny",
+                    apellido: "Jimenez",
+                    correo: "dannyj182@gmail.com",
+                    dni: "95542176"
+                },
+                {
+                    nombre: "Daniela",
+                    apellido: "Molina Luna",
+                    correo: "daniela@gmail.com",
+                    dni: "95444888"
+                },
+                {
+                    nombre: "Juan",
+                    apellido: "Garcia",
+                    correo: "juan@gmail.com",
+                    dni: "95333222"
+                },
+                {
+                    nombre: "Hender",
+                    apellido: "Garcia",
+                    correo: "hender@gmail.com",
+                    dni: "96000555"
+                },
+                {
+                    nombre: "Ana",
+                    apellido: "Luna",
+                    correo: "ana@gmail.com",
+                    dni: "94777888"
+                },
+                {
+                    nombre: "Jose",
+                    apellido: "Gonzalez",
+                    correo: "jose@gmail.com",
+                    dni: "98222333"
+                },
+            ]
+
+        },
+        computed: {
+            filtrarPersonas() {
+                if(this.validarCaracteresNyA && this.validarCaracteresDni){
+                    return this.filtrarAmbosCampos()
+                }else if(this.validarCaracteresNyA){
+                    return this.filtrarPorNyA()
+                }else if(this.validarCaracteresDni){
+                    return this.filtrarPorDni()
+                }else{
+                    return this.personas
+                }
+            },
+            validarlongitudNyA(){
+                this.validarCaracteresNyA = this.criterioDeBusquedaNyA.length >= this.cantMinCaracteres
+                return this.validarCaracteresNyA
+            },
+            validarlongitudDni(){
+                this.validarCaracteresDni = this.criterioDeBusquedaDni.length >= this.cantMinCaracteres
+                return this.validarCaracteresDni
+            },
+        },
+        methods: {
+            getNombreCompleto(persona) {
+                return `${persona.nombre} ${persona.apellido}`
+            },
+            filtrarPorNyA() {
+                return this.personas.filter((persona) => {
+                    let registroCompleto = `${persona.nombre} ${persona.apellido}`
+                    return registroCompleto.toLowerCase().includes(this.criterioDeBusquedaNyA.toLowerCase())
+                });
+            },
+            filtrarPorDni() {
+                return this.personas.filter((persona) => {
+                    let registroCompleto = `${persona.dni}`
+                    return registroCompleto.toLowerCase().includes(this.criterioDeBusquedaDni.toLowerCase())
+                });
+            },
+            filtrarAmbosCampos() {
+                return this.personas.filter((persona) => {
+                    let nombreApellido = `${persona.nombre} ${persona.apellido}`
+                    validacionNyA = nombreApellido.toLowerCase().includes(this.criterioDeBusquedaNyA.toLowerCase())
+                    let documento = `${persona.dni}`
+                    validacionDni = documento.toLowerCase().includes(this.criterioDeBusquedaDni.toLowerCase())
+                    return validacionNyA && validacionDni
+                });
+            },
+        }
+    });
+</script>

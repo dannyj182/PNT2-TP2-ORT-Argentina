@@ -1,0 +1,272 @@
+C:\Users\danny\Desktop\TP2\21D\Clase9\TP4\base
+λ mongosh
+Current Mongosh Log ID: 635d447527f61177e87f7420
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.0
+Using MongoDB:          6.0.2
+Using Mongosh:          1.6.0
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2022-10-29T12:17:28.115-03:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2022-10-29T12:17:28.116-03:00: This server is bound to localhost. Remote systems will be unable to connect to this server. Start the server with --bind_ip <address> to specify which IP addresses it should serve responses from, or with --bind_ip_all to bind to all interfaces. If this behavior is desired, start the server with --bind_ip 127.0.0.1 to disable this warning
+------
+
+------
+   Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+   metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+   The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+   and anyone you share the URL with. MongoDB may use this information to make product
+   improvements and to suggest MongoDB products and deployment options to you.
+
+   To enable free monitoring, run the following command: db.enableFreeMonitoring()
+   To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+------
+
+test> use empresa
+switched to db empresa
+empresa> db.createCollection('clientes')
+{ ok: 1 }
+empresa> db.clientes.insertOne({nombre: 'Danny', apellido: 'Jimenez', edad: 32, telefono: 12341234, email: 'danny@correo.com'})
+{
+  acknowledged: true,
+  insertedId: ObjectId("635d4ab8b3cb17584d601764")
+}
+empresa> db.clientes.insertOne({nombre: 'Daniela', apellido: 'Molina', edad: 29, telefono: 43214321, email: 'daniela@correo.com'})
+{
+  acknowledged: true,
+  insertedId: ObjectId("635d4ae9b3cb17584d601765")
+}
+empresa> db.clientes.insertOne({nombre: 'Juan', apellido: 'Garcia', edad: 22, telefono: 78907890, email: 'juan@correo.com'})
+{
+  acknowledged: true,
+  insertedId: ObjectId("635d4b0bb3cb17584d601766")
+}
+empresa> db.clientes.insertOne({nombre: 'Genesis', apellido: 'Alonso', edad: 30, telefono: 67896789, email: 'genesis@correo.com'})
+{
+  acknowledged: true,
+  insertedId: ObjectId("635d4b34b3cb17584d601767")
+}
+empresa> db.clientes.insertOne({nombre: 'Jose', apellido: 'Perez', edad: 25, telefono: 87655678, email: 'jose@correo.com'})
+{
+empresa> db.productos.insertMany([{nombre: 'Escritorio', descripcion: 'Escritorio blanco tamaño medio', stock: 5, precio: 100},{nombre: 'Cama', descripcion: 'Cama dos plazas', stock: 10, precio: 250},{nombre: 'Nevera', descripcion: 'Nevera color gris, tamaño grande', stock: 2, precio: 350}, {nombre: 'Lavadora', descripcion: 'Lavadora blanca de 10 Kg', stock: 6, precio: 300}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("635d4d31b3cb17584d601769"),
+    '1': ObjectId("635d4d31b3cb17584d60176a"),
+    '2': ObjectId("635d4d31b3cb17584d60176b"),
+    '3': ObjectId("635d4d31b3cb17584d60176c")
+  }
+}
+empresa> show collections
+clientes
+productos
+empresa> db.clientes.find()
+[
+  {
+    _id: ObjectId("635d4ab8b3cb17584d601764"),
+    nombre: 'Danny',
+    apellido: 'Jimenez',
+    edad: 32,
+    telefono: 12341234,
+    email: 'danny@correo.com'
+  },
+  {
+    _id: ObjectId("635d4ae9b3cb17584d601765"),
+    nombre: 'Daniela',
+    apellido: 'Molina',
+    edad: 29,
+    telefono: 43214321,
+    email: 'daniela@correo.com'
+  },
+  {
+    _id: ObjectId("635d4b0bb3cb17584d601766"),
+    nombre: 'Juan',
+    apellido: 'Garcia',
+    edad: 22,
+    telefono: 78907890,
+    email: 'juan@correo.com'
+  },
+  {
+    _id: ObjectId("635d4b34b3cb17584d601767"),
+    nombre: 'Genesis',
+    apellido: 'Alonso',
+    edad: 30,
+    telefono: 67896789,
+    email: 'genesis@correo.com'
+  },
+  {
+    _id: ObjectId("635d4b8ab3cb17584d601768"),
+    nombre: 'Jose',
+    apellido: 'Perez',
+    edad: 25,
+    telefono: 87655678,
+    email: 'jose@correo.com'
+  }
+]
+empresa> db.productos.find()
+[
+  {
+    _id: ObjectId("635d4d31b3cb17584d601769"),
+    nombre: 'Escritorio',
+    descripcion: 'Escritorio blanco tamaño medio',
+    stock: 5,
+    precio: 100
+  },
+  {
+    _id: ObjectId("635d4d31b3cb17584d60176a"),
+    nombre: 'Cama',
+    descripcion: 'Cama dos plazas',
+    stock: 10,
+    precio: 250
+  },
+  {
+    _id: ObjectId("635d4d31b3cb17584d60176b"),
+    nombre: 'Nevera',
+    descripcion: 'Nevera color gris, tamaño grande',
+    stock: 2,
+    precio: 350
+  },
+  {
+    _id: ObjectId("635d4d31b3cb17584d60176c"),
+    nombre: 'Lavadora',
+    descripcion: 'Lavadora blanca de 10 Kg',
+    stock: 6,
+    precio: 300
+  }
+]
+empresa> db.clientes.countDocuments()
+5
+empresa> db.productos.countDocuments()
+4
+empresa> db.clientes.find().sort({edad:1})
+[
+  {
+    _id: ObjectId("635d4b0bb3cb17584d601766"),
+    nombre: 'Juan',
+    apellido: 'Garcia',
+    edad: 22,
+    telefono: 78907890,
+    email: 'juan@correo.com'
+  },
+  {
+    _id: ObjectId("635d4b8ab3cb17584d601768"),
+    nombre: 'Jose',
+    apellido: 'Perez',
+    edad: 25,
+    telefono: 87655678,
+    email: 'jose@correo.com'
+  },
+  {
+    _id: ObjectId("635d4ae9b3cb17584d601765"),
+    nombre: 'Daniela',
+    apellido: 'Molina',
+    edad: 29,
+    telefono: 43214321,
+    email: 'daniela@correo.com'
+  },
+  {
+    _id: ObjectId("635d4b34b3cb17584d601767"),
+    nombre: 'Genesis',
+    apellido: 'Alonso',
+    edad: 30,
+    telefono: 67896789,
+    email: 'genesis@correo.com'
+  },
+  {
+    _id: ObjectId("635d4ab8b3cb17584d601764"),
+    nombre: 'Danny',
+    apellido: 'Jimenez',
+    edad: 32,
+    telefono: 12341234,
+    email: 'danny@correo.com'
+  }
+]
+empresa> db.productos.find().sort({stock:-1})
+[
+  {
+    _id: ObjectId("635d4d31b3cb17584d60176a"),
+    nombre: 'Cama',
+    descripcion: 'Cama dos plazas',
+    stock: 10,
+    precio: 250
+  },
+  {
+    _id: ObjectId("635d4d31b3cb17584d60176c"),
+    nombre: 'Lavadora',
+    descripcion: 'Lavadora blanca de 10 Kg',
+    stock: 6,
+    precio: 300
+  },
+  {
+    _id: ObjectId("635d4d31b3cb17584d601769"),
+    nombre: 'Escritorio',
+    descripcion: 'Escritorio blanco tamaño medio',
+    stock: 5,
+    precio: 100
+  },
+  {
+    _id: ObjectId("635d4d31b3cb17584d60176b"),
+    nombre: 'Nevera',
+    descripcion: 'Nevera color gris, tamaño grande',
+    stock: 2,
+    precio: 350
+  }
+]
+empresa> db.productos.find().sort({precio:-1}).limit(1)
+[
+  {
+    _id: ObjectId("635d4d31b3cb17584d60176b"),
+    nombre: 'Nevera',
+    descripcion: 'Nevera color gris, tamaño grande',
+    stock: 2,
+    precio: 350
+  }
+]
+empresa> db.clientes.find().sort({nombre:1}).limit(2)
+[
+  {
+    _id: ObjectId("635d4ae9b3cb17584d601765"),
+    nombre: 'Daniela',
+    apellido: 'Molina',
+    edad: 29,
+    telefono: 43214321,
+    email: 'daniela@correo.com'
+  },
+  {
+    _id: ObjectId("635d4ab8b3cb17584d601764"),
+    nombre: 'Danny',
+    apellido: 'Jimenez',
+    edad: 32,
+    telefono: 12341234,
+    email: 'danny@correo.com'
+  }
+]
+empresa> db.productos.updateOne({nombre:'Escritorio'},{$set: {precio: 125}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+empresa> db.clientes.deleteOne({nombre: 'Jose'})
+{ acknowledged: true, deletedCount: 1 }
+empresa> db.productos.find({},{nombre: 1, precio: 1,_id:0}).sort({precio:1})
+[
+  { nombre: 'Escritorio', precio: 125 },
+  { nombre: 'Cama', precio: 250 },
+  { nombre: 'Lavadora', precio: 300 },
+  { nombre: 'Nevera', precio: 350 }
+]
+empresa> db.clientes.find({},{nombre: 1, email: 1, _id:0})
+[
+  { nombre: 'Danny', email: 'danny@correo.com' },
+  { nombre: 'Daniela', email: 'daniela@correo.com' },
+  { nombre: 'Juan', email: 'juan@correo.com' },
+  { nombre: 'Genesis', email: 'genesis@correo.com' }
+]
+empresa>
